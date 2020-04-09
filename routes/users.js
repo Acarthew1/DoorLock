@@ -4,6 +4,7 @@ const User = require('../models/user');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
+//const TrustedUser = require('../models/TrustedUser');
 
 //register
 router.post('/register', (req, res, next) =>{
@@ -11,7 +12,8 @@ router.post('/register', (req, res, next) =>{
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+	    TrustedUsers: req.body.TrustedUsers
     });
 
     User.addUser(newUser, (err, user) =>{
@@ -67,6 +69,23 @@ router.post('/authenticate', (req, res, next) =>{
 //Profile
 router.get('/profile', passport.authenticate('jwt',{session:false} ), (req, res, next) =>{
     res.json({user: req.user});
+
+});
+
+//Add TrustedUser
+router.post('/trusted', (req, res, next) =>{
+    const username = req.body.username;
+    const TrustedUser = req.body.TrustedUser;
+
+    User.addTrustedUser(username, TrustedUser, (err) =>{
+        if(err){
+            res.json({success: false, msg: 'Failed to add trusted user'});
+        } else{
+            res.json({success: true, msg: 'Trusted user Registered'});
+        }
+
+    });
+
 
 });
 

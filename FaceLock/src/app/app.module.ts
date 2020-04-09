@@ -20,6 +20,8 @@ import { LivestreamComponent } from './livestream/livestream.component';
 import { RegisterFaceComponent } from './register-face/register-face.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxDropzoneModule} from 'ngx-dropzone';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
     DashboardComponent,
     ProfileComponent,
     LivestreamComponent,
-    RegisterFaceComponent
+    RegisterFaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
     HttpClientModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
+    MatButtonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -49,7 +52,8 @@ import {NgxDropzoneModule} from 'ngx-dropzone';
         },
         whitelistedDomains: ["http://localhost:4200"]
       }
-    })
+    }),
+
   ],
   providers: [ValidateService, AuthService, AuthGuard],
   bootstrap: [AppComponent]

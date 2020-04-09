@@ -18,8 +18,11 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
+    },
+    TrustedUsers: {
+        type: Array,
+        require: false
     }
-
 });
 
 const User = module.exports = mongoose.model('User', userSchema);
@@ -30,8 +33,21 @@ module.exports.getUserById = function(id, callback){
 }
 module.exports.getUserByUsername = function(username, callback){
     const query = {username: username}
-    User.findOne(query, callback)
+    User.findOne(query, callback);
 
+}
+
+module.exports.addTrustedUser = function(username, TrustedUsers, callback){
+    const query = {username: username};
+    //const newValues = {$set: {TrustedUsers: "Hello"}};
+    //User.findOne(query, callback);
+   // User.updateOne(query, newValues);
+        //{},
+        //{$push: {TrustedUsers: TrustedUsers}},
+        //callback
+    //);
+    //User.findById(username, callback);
+    
 }
 
 module.exports.addUser = function(newUser, callback){
