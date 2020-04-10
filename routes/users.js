@@ -73,7 +73,7 @@ router.get('/profile', passport.authenticate('jwt',{session:false} ), (req, res,
 });
 
 //Add TrustedUser
-router.post('/trusted', (req, res, next) =>{
+router.put('/trusted', (req, res, next) =>{
     const username = req.body.username;
     const TrustedUser = req.body.TrustedUser;
 

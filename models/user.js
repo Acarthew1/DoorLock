@@ -39,13 +39,13 @@ module.exports.getUserByUsername = function(username, callback){
 
 module.exports.addTrustedUser = function(username, TrustedUsers, callback){
     const query = {username: username};
-    //const newValues = {$set: {TrustedUsers: "Hello"}};
+    const newValues = {$set: {TrustedUsers: "Hello"}};
     //User.findOne(query, callback);
-   // User.updateOne(query, newValues);
-        //{},
+    User.updateOne(query, newValues);
+        //{query},
         //{$push: {TrustedUsers: TrustedUsers}},
         //callback
-    //);
+   // );
     //User.findById(username, callback);
     
 }
