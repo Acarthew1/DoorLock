@@ -73,7 +73,8 @@ router.get('/profile', passport.authenticate('jwt',{session:false} ), (req, res,
 });
 
 //Add TrustedUser
-router.put('/trusted', (req, res, next) =>{
+router.post('/trusted', (req, res, next) =>{
+    //console.log("hello");
     const username = req.body.username;
     const TrustedUser = req.body.TrustedUser;
 
@@ -82,6 +83,24 @@ router.put('/trusted', (req, res, next) =>{
             res.json({success: false, msg: 'Failed to add trusted user'});
         } else{
             res.json({success: true, msg: 'Trusted user Registered'});
+        }
+
+    });
+
+
+});
+
+//Add TrustedUser
+router.post('/remtrusted', (req, res, next) =>{
+    //console.log("hello");
+    const username = req.body.username;
+    const TrustedUser = req.body.TrustedUser;
+
+    User.removeTrustedUser(username, TrustedUser, (err) =>{
+        if(err){
+            res.json({success: false, msg: 'Failed to remove trusted user'});
+        } else{
+            res.json({success: true, msg: 'Trusted user removed'});
         }
 
     });

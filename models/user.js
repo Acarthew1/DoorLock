@@ -38,17 +38,37 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 module.exports.addTrustedUser = function(username, TrustedUsers, callback){
+    //console.log("here");
     const query = {username: username};
-    const newValues = {$set: {TrustedUsers: "Hello"}};
-    //User.findOne(query, callback);
-    User.updateOne(query, newValues);
-        //{query},
-        //{$push: {TrustedUsers: TrustedUsers}},
-        //callback
-   // );
-    //User.findById(username, callback);
+    const newValue = TrustedUsers;
+    User.findOneAndUpdate(query, {$push: {TrustedUsers: newValue}}, function(err, res){
+        if(err != null){
+            console.error("an error has occurred", err);
+            callback(null, JSON.stringify(err));
+        }
+        else{
+            console.log("Successfully added trusted user");
+            callback(null, JSON.stringify("worked"));
+        }
+    }); 
+
+   
     
 }
+module.exports.removeTrustedUser = function(username, TrustedUsers, callback){
+    //console.log("here");
+    const query = {username: username};
+    const newValue = TrustedUsers;
+    User.findOneAndUpdate(query, {$pull: {TrustedUsers: newValue}}, function(err, res){
+        if(err != null){
+            console.error("an error has occurred", err);
+            callback(null, JSON.stringify(err));
+        }
+        else{
+            console.log("Successfully added trusted user");
+            callback(null, JSON.stringify("worked"));
+        }
+    });
 
 module.exports.addUser = function(newUser, callback){
     bcrypt.genSalt(10, (err, salt) => {
@@ -68,4 +88,5 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 
     });
 
+}
 }
